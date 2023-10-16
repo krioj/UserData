@@ -124,7 +124,7 @@ static void RemuveUser(IReadRepository<User> repository)
     var item = repository.GetAll();
     try
     {
-        //repository.Remove(repository.GetById(int.Parse(Console.ReadLine())));
+        repository.Remove(repository.GetById(int.Parse(Console.ReadLine())));      // exeption
     }
     catch
     {
