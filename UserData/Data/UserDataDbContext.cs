@@ -5,7 +5,7 @@ namespace UserData.Data
 {
     public class UserDataDbContext : DbContext
     {
-        public DbSet<User> Employees => Set<User>();
+        public DbSet<User> User => Set<User>();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
