@@ -6,6 +6,6 @@ namespace UserData.Entitys
     {
         public int Id { get; set; }
 
-
     }
 }
+

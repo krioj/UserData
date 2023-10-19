@@ -3,6 +3,7 @@ namespace UserData.Entitys
 {
     public class User : EntityBase
     {
+
         public string? Login { get; set; }
         public string? Password { get; set; }
         public string? NickName { get; set; }
@@ -17,10 +18,6 @@ namespace UserData.Entitys
                 return $"Id: {Id}, NickName: {NickName} (Moderator)";
             return $"Id: {Id}, NickName: {NickName}";
         }
-
-
-
-
 
     }
 }

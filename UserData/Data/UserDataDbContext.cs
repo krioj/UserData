@@ -3,7 +3,7 @@ using UserData.Entitys;
 
 namespace UserData.Data
 {
-    public class MotoAppDbContext : DbContext
+    public class UserDataDbContext : DbContext
     {
         public DbSet<User> Employees => Set<User>();
 
@@ -14,3 +14,4 @@ namespace UserData.Data
         }
     }
 }
+
