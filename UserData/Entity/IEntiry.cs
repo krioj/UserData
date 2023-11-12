@@ -1,10 +1,6 @@
-﻿namespace UserData.Entitys
-{
-    public interface IEntity
-    {
-        
+﻿namespace UserData.Entitys;
 
-        int Id { get; set; }
-        
-    }
+public interface IEntity
+{
+    int Id { get; set; }
 }

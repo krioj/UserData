@@ -1,14 +1,13 @@
 ﻿using UserData.Entitys;
 
-namespace UserData.Repositories
+namespace UserData.Repositories;
+
+public interface IReadRepository<out T> where T : class, IEntity
 {
-    public interface IReadRepository<out T> where T : class, IEntity
-    {
-        IEnumerable<T> GetAll();
+    IEnumerable<T> GetAll();
 
-        T? GetById(int id);
+    T? GetById(int id);
 
 
-    }
 }
 

@@ -1,44 +1,51 @@
-﻿using Microsoft.EntityFrameworkCore;
-using UserData.Entitys;
-using UserData.Repositories;
+﻿using UserData.Entitys;
+using Microsoft.EntityFrameworkCore;
 
-namespace UserData.Repositories
+namespace UserData.Repositories;
+
+public class SqlRepository<T> : IRepository<T> where T : class, IEntity, new()
 {
-    public class SqlRepository<T> : IRepository<T> where T : class, IEntity, new()
+    private readonly DbSet<T> _dbSet;
+    private readonly DbContext _dbContext;
+    
+    private readonly Action<T>? _itemAddedCallback;
+    private readonly Action<T>? _itemRemoveCallback;
+
+    public SqlRepository(DbContext dbContext, Action<T>? itemAddedCallback = null, Action<T>? itemRemoveCallback = null)      
     {
-        private readonly DbSet<T> _dbSet;
-        private readonly DbContext _dbContext;
-        //private readonly Action<T>? _itemAddedCallback;
+        _dbContext = dbContext;
+        _dbSet = _dbContext.Set<T>();
+        _itemAddedCallback = itemAddedCallback;
+        _itemRemoveCallback = itemRemoveCallback;
+    }
 
-        public SqlRepository(DbContext dbContext)//, Action<T>? itemAddedCallback = null)
-        {
-            _dbContext = dbContext;
-            _dbSet = _dbContext.Set<T>();
-            //_itemAddedCallback = itemAddedCallback;
-        }
+    public event EventHandler<T>? ItemAdded;
+    public event EventHandler<T>? ItemRemove;
 
-        public event EventHandler<T>? ItemAdded;
-
-        public IEnumerable<T> GetAll() => _dbSet.ToList();
-
-        public T GetById(int id) => _dbSet.Find(id);
-
-        public void Add(T item)
-        {
+    public IEnumerable<T>GetAll()
+    {
+            return _dbSet.ToList();
+    }
+    
+    public T GetById(int id) => _dbSet.Find(id);
+    
+    public void Add(T item)
+    {
             _dbSet.Add(item);
             ItemAdded?.Invoke(this, item);
-
-        }
-        public void Remove(T item)
-        {
-            _dbSet.Remove(item);
-
-
-        }
-        public void Save() => _dbContext.SaveChanges();
+    }
+    
+    public void Remove(T item)
+    {
+        _dbSet.Remove(item);
+        ItemRemove?.Invoke(this, item);
+    }
+    
+    public void Save()
+    {
+        _dbContext.SaveChanges();
     }
 }
-
 
 
 

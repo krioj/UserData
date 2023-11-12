@@ -1,5 +1,4 @@
 ﻿using UserData.Entitys;
-using UserData.Repositories;
 
 namespace UserData.Repositories;
 

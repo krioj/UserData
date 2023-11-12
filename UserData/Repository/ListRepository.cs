@@ -1,32 +1,30 @@
-﻿namespace UserData.Repositories
+﻿namespace UserData.Repositories;
+
+using UserData.Entitys;
+
+public class ListRepository<T> : IRepository<T> where T : class, IEntity, new()
 {
-    using UserData.Entitys;
-    using UserData.Repositories;
+    protected readonly List<T> _items = new();
 
-    public class ListRepository<T> : IRepository<T> where T : class, IEntity, new()
+    public IEnumerable<T> GetAll() => _items.ToList();
+
+    public T? GetById(int id) => _items.Single(item => item.Id == id);
+
+    public void Add(T item)
     {
-        protected readonly List<T> _items = new();
+        item.Id = _items.Count + 1;
+        _items.Add(item);
+    }
 
-        public IEnumerable<T> GetAll() => _items.ToList();
+    public void Save()
+    {
+        //Console.WriteLine(item);
+    }
 
-        public T? GetById(int id) => _items.Single(item => item.Id == id);
+    public void Remove(T item)
+    {
+        _items.Remove(item);
 
-        public void Add(T item)
-        {
-            item.Id = _items.Count + 1;
-            _items.Add(item);
-        }
-
-        public void Save()
-        {
-            //Console.WriteLine(item);
-        }
-
-        public void Remove(T item)
-        {
-            _items.Remove(item);
-
-        }
     }
 }
 
