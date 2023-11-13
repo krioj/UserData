@@ -4,70 +4,8 @@ using UserData.Repositories;
 
 var userRepository = new SqlRepository<User>(new UserDataDbContext());
 
-userRepository.ItemAdded += userRepositoryOnItemAdded;
-userRepository.ItemRemove += userRepositoryOnItemRemove;
-
-static void userRepositoryOnItemAdded(object? sender, User e)
-{
-
-    if (e.Administrator == true)
-    {
-        string administrator = $"Administrator \"{e.NickName}\" added from class \"{sender?.GetType().Name}\", Date: {DateTime.Now}";
-        Console.WriteLine(administrator);
-        using (var writer = File.AppendText("History.txt"))
-        {
-            writer.WriteLine(administrator);
-        }
-    }
-    else if (e.Moderator == true)
-    {
-        string moderator = $"Moderator  \"{e.NickName}\" added from class \"{sender?.GetType().Name}\", Date: {DateTime.Now}";
-        Console.WriteLine(moderator);
-        using (var writer = File.AppendText("History.txt"))
-        {
-            writer.WriteLine(moderator);
-        }
-    }
-    else
-    {
-        string user = $"User \"{e.NickName}\" added from class \"{sender?.GetType().Name}\", Date:  {DateTime.Now}";
-        Console.WriteLine(user);
-        using (var writer = File.AppendText("History.txt"))
-        {
-            writer.WriteLine(user);
-        }
-    }
-}
-static void userRepositoryOnItemRemove(object? sender, User e)
-{
-    if (e.Administrator == true)
-    {
-        string administrator = $"Administrator \"{e.NickName}\" remove from class \"{sender?.GetType().Name}\", Date:  {DateTime.Now}";
-        Console.WriteLine(administrator);
-        using (var writer = File.AppendText("History.txt"))
-        {
-            writer.WriteLine(administrator);
-        }
-    }
-    else if (e.Moderator == true)
-    {
-        string moderator = $"Moderator  \"{e.NickName}\" remove from class \"{sender?.GetType().Name}\", Date:   {DateTime.Now}";
-        Console.WriteLine(moderator);
-        using (var writer = File.AppendText("History.txt"))
-        {
-            writer.WriteLine(moderator);
-        }
-    }
-    else
-    {
-        string user = $"User \"{e.NickName}\" remove from class \"{sender?.GetType().Name}\", Date:   {DateTime.Now}";
-        Console.WriteLine(user);
-        using (var writer = File.AppendText("History.txt"))
-        {
-            writer.WriteLine(user);
-        }
-    }
-}
+userRepository.ItemAdded += UserRepositoryOnItemAdded;
+userRepository.ItemRemove += UserRepositoryOnItemRemove;
 
 do
 {
@@ -100,6 +38,69 @@ do
             break;
     }
 } while (true);
+
+static void UserRepositoryOnItemAdded(object? sender, User e)
+{
+
+    if (e.Administrator == true)
+    {
+        string administrator = $"Administrator \"{e.NickName}\" added from class \"{sender?.GetType().Name}\", Date: {DateTime.Now}";
+        Console.WriteLine(administrator);
+        using (var writer = File.AppendText("History.txt"))
+        {
+            writer.WriteLine(administrator);
+        }
+    }
+    else if (e.Moderator == true)
+    {
+        string moderator = $"Moderator  \"{e.NickName}\" added from class \"{sender?.GetType().Name}\", Date: {DateTime.Now}";
+        Console.WriteLine(moderator);
+        using (var writer = File.AppendText("History.txt"))
+        {
+            writer.WriteLine(moderator);
+        }
+    }
+    else
+    {
+        string user = $"User \"{e.NickName}\" added from class \"{sender?.GetType().Name}\", Date:  {DateTime.Now}";
+        Console.WriteLine(user);
+        using (var writer = File.AppendText("History.txt"))
+        {
+            writer.WriteLine(user);
+        }
+    }
+}
+
+static void UserRepositoryOnItemRemove(object? sender, User e)
+{
+    if (e.Administrator == true)
+    {
+        string administrator = $"Administrator \"{e.NickName}\" remove from class \"{sender?.GetType().Name}\", Date:  {DateTime.Now}";
+        Console.WriteLine(administrator);
+        using (var writer = File.AppendText("History.txt"))
+        {
+            writer.WriteLine(administrator);
+        }
+    }
+    else if (e.Moderator == true)
+    {
+        string moderator = $"Moderator  \"{e.NickName}\" remove from class \"{sender?.GetType().Name}\", Date:   {DateTime.Now}";
+        Console.WriteLine(moderator);
+        using (var writer = File.AppendText("History.txt"))
+        {
+            writer.WriteLine(moderator);
+        }
+    }
+    else
+    {
+        string user = $"User \"{e.NickName}\" remove from class \"{sender?.GetType().Name}\", Date:   {DateTime.Now}";
+        Console.WriteLine(user);
+        using (var writer = File.AppendText("History.txt"))
+        {
+            writer.WriteLine(user);
+        }
+    }
+}
 
 static void Menu()
 {
